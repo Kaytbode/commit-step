@@ -35,6 +35,7 @@ input {
     font-family: 'Dosis', sans-serif;
     letter-spacing: 2px;
     padding: 5px;
+    font-weight: 600;
 }
 
 button {
@@ -70,4 +71,9 @@ button {
     left: 365px;
     font-size: 1em;
     color: #FFB429;
+}
+
+.star {
+    color:#FFB429;
+    font-weight: 600;
 }

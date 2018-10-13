@@ -33,6 +33,18 @@
 
         </div>
     </main>
+    <script>
+        navigator.serviceWorker.register('sw.js').then(reg=>{
+            if(!navigator.serviceWorker.controller)return;
+            console.log('sw registered')
+            return reg.sync.getTags();
+            }).then(tags=>{
+                if(tags.includes('move-step')) console.log('background sync pending');
+            }).catch(err=>{
+                console.log('sync not supported or flag not enabled');
+                console.log(err.message);
+            });
+    </script>
     <script src="js/idb.js"></script>
     <script src="js/appController.js"></script>
     <script src="js/events.js"></script>

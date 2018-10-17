@@ -1,7 +1,6 @@
 // REGISTER SERVICE WORKER
 AppController.registerSW();
 
-
 document.querySelector('form').addEventListener('submit', event => {
     event.preventDefault();
 
@@ -9,6 +8,8 @@ document.querySelector('form').addEventListener('submit', event => {
     //Add user to indexDB
     AppController.addUserToDB(userName);
 
+    //sync first time
+    AppController.syncSW();
     //sync service worker every 24hours
     setInterval(AppController.syncSW, 86400000);
 });

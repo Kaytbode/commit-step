@@ -10,7 +10,7 @@ document.querySelector('form').addEventListener('submit', event => {
     AppController.addUserToDB(userName);
 
     //sync service worker every 24hours
-    AppController.syncSW();
+    setInterval(AppController.syncSW, 86400000);
 });
 
 const channel = new BroadcastChannel('sw-message');

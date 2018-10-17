@@ -32,9 +32,11 @@ class AppController {
         const dbPromise = idb.open('commit-step', 2, upgradeDb =>{
             switch(upgradeDb.oldVersion){
                 case 0:
-                    upgradeDb.createObjectStore('username');
+                    let store = upgradeDb.createObjectStore('username');
+                    store.put(365, 'stepUp');
+                    store.put(0, 'stepRight');
                 case 1:
-                    const store = upgradeDb.createObjectStore('commits');
+                    store = upgradeDb.createObjectStore('commits');
                     store.put(0, 'counter');
             }
         });
@@ -144,5 +146,39 @@ class AppController {
         }
         
         return step;
+    }
+
+    static createFootPrints() {
+        const footprints = document.createElement('div');
+        footprints.innerHTML = '<i class="fas fa-shoe-prints"></i>';
+        footprints.classList.add('foot-prints');
+
+        return footprints;
+    }
+
+    static moveFeet(feet, journey) {
+        const dbPromise = AppController.initializeDB();
+
+        dbPromise.then(async db => {
+            const tx = db.transaction('username').objectStore('username');
+
+            const stepUp = await tx.get('stepUp');
+            const stepRight = await tx.get('stepRight');
+            const step = await tx.get('step');
+
+            //move your feet 
+            feet.style.top = stepUp;
+            feet.style.left = stepRight;
+
+            // leave footprints if you moved
+            if(step){
+                const footprints = AppController.createFootPrints();
+                footprints.style.top = stepUp + step;
+                footprints.style.left = stepRight - step;
+                journey.appendChild(footprints);
+            }
+         
+            return tx.complete;
+        })
     }
 }

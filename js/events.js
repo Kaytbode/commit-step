@@ -1,6 +1,7 @@
 // REGISTER SERVICE WORKER
 AppController.registerSW();
 
+
 document.querySelector('form').addEventListener('submit', event => {
     event.preventDefault();
 
@@ -12,9 +13,14 @@ document.querySelector('form').addEventListener('submit', event => {
     AppController.syncSW();
 });
 
-
 const channel = new BroadcastChannel('sw-message');
 
 channel.addEventListener('message', event =>{
-    console.log(event.data.action);
+    if (event.data.action === 'posted to indexDB'){
+        const feet = document.querySelector('.feet');
+
+        const journey = document.querySelector('.journey');
+
+        AppController.moveFeet(feet, journey);
+    }
 }); 

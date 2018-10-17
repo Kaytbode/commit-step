@@ -46,8 +46,9 @@ addEventListener('fetch', event=>{
 
 addEventListener('sync', event =>{
     if (event.tag == 'moveStep') {
-       // event.waitUntil(commitSteps());
-
+        event.waitUntil(commitSteps());
+        //inform the app about your posting to indexDB
+        // using BroadcastChannel API
         const channel = new BroadcastChannel('sw-message');
         channel.postMessage({action:'posted to indexDB'});  
     } 
@@ -67,6 +68,11 @@ const commitSteps =()=> {
         const tx = db.transaction('username', 'readwrite');
         store = tx.objectStore('username');
 
+        const stepUp = await store.get('stepUp');
+        const stepRight = await store.get('stepRight');
+
+        store.put(stepUp - step, 'stepUp');
+        store.put(stepRight + step, 'stepRight');
         store.put(step, 'step');
 
         return tx.complete;

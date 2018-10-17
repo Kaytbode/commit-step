@@ -167,14 +167,14 @@ class AppController {
             const step = await tx.get('step');
 
             //move your feet 
-            feet.style.top = stepUp;
-            feet.style.left = stepRight;
+            feet.style.top = `${stepUp}px`;
+            feet.style.left = `${stepRight}px`;
 
             // leave footprints if you moved
             if(step){
                 const footprints = AppController.createFootPrints();
-                footprints.style.top = stepUp + step;
-                footprints.style.left = stepRight - step;
+                footprints.style.top = `${stepUp + step}px`;
+                footprints.style.left = `${stepRight - step}px`;
                 journey.appendChild(footprints);
             }
          

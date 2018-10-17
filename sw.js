@@ -44,10 +44,13 @@ addEventListener('fetch', event=>{
     );
 });
 
-addEventListener('sync', event=>{
-   if (event.tag == 'moveStep') {
-        event.waitUntil(commitSteps());
-    }
+addEventListener('sync', event =>{
+    if (event.tag == 'moveStep') {
+       // event.waitUntil(commitSteps());
+
+        const channel = new BroadcastChannel('sw-message');
+        channel.postMessage({action:'posted to indexDB'});  
+    } 
 });
 
 // Generate commit steps
@@ -55,19 +58,18 @@ const commitSteps =()=> {
     const dbPromise = AppController.initializeDB();
 
     dbPromise.then(async db => {
-        const store = db.transaction('username').objectStore('username');
+        let store = db.transaction('username').objectStore('username');
         const userName = await store.get('user');
 
-
         const step = await AppController.calcSteps(userName);
-        // opens another transaction cause the async function 
+        // opens another transaction cos the async function 
         // causes the idb transaction to autoclose
         const tx = db.transaction('username', 'readwrite');
-        const store2 = tx.objectStore('username');
+        store = tx.objectStore('username');
 
-        store2.put(step, 'step');
+        store.put(step, 'step');
 
-        return store.complete;
+        return tx.complete;
     });
-
 }
+

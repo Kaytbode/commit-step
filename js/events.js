@@ -1,7 +1,5 @@
 // REGISTER SERVICE WORKER
-//AppController.registerSW();
-
-//AppController.syncSW();
+AppController.registerSW();
 
 document.querySelector('form').addEventListener('submit', event => {
     event.preventDefault();
@@ -14,3 +12,9 @@ document.querySelector('form').addEventListener('submit', event => {
     AppController.syncSW();
 });
 
+
+const channel = new BroadcastChannel('sw-message');
+
+channel.addEventListener('message', event =>{
+    console.log(event.data.action);
+}); 

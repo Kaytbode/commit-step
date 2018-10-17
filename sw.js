@@ -8,11 +8,11 @@ addEventListener('install', event=>{
     event.waitUntil(
         caches.open(staticCacheName).then(cache=>{
             return cache.addAll([
-                '/',
-                '/css/main.css',
-                '/js/appController.js',
-                '/js/events.js',
-                '/js/idb.js',
+                '/commit-step',
+                '/commit-step/css/main.css',
+                '/commit-step/js/appController.js',
+                '/commit-step/js/main.js',
+                '/commit-step/js/idb.js',
                 "https://use.fontawesome.com/releases/v5.3.1/css/all.css",
                 'https://fonts.googleapis.com/css?family=Roboto+Mono|Dosis',
 

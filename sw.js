@@ -54,7 +54,7 @@ addEventListener('sync', event =>{
     } 
 });
 
-// Generate commit steps
+// Generate steps from github commits
 const commitSteps =()=> {
     const dbPromise = AppController.initializeDB();
 
@@ -70,7 +70,7 @@ const commitSteps =()=> {
 
         const stepUp = await store.get('stepUp');
         const stepRight = await store.get('stepRight');
-
+        //post the steps to take to indexDb
         store.put(stepUp - step, 'stepUp');
         store.put(stepRight + step, 'stepRight');
         store.put(step, 'step');

@@ -15,7 +15,6 @@ document.querySelector('form').addEventListener('submit', event => {
 });
 
 const channel = new BroadcastChannel('sw-message');
-
 channel.addEventListener('message', event =>{
     if (event.data.action === 'posted to indexDB'){
         const feet = document.querySelector('.feet');

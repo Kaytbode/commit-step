@@ -1,5 +1,6 @@
 
 class AppController {
+    // service worker registeration
     static registerSW() {
         navigator.serviceWorker.register('./sw.js').then(reg=>{
             if(!navigator.serviceWorker.controller)return;
@@ -27,7 +28,7 @@ class AppController {
     static gitHubUrl(userName){
         return `https://api.github.com/users/${userName}/repos`;
     }
-
+    //create a database using indexDb
     static initializeDB() {
         const dbPromise = idb.open('commit-step', 2, upgradeDb =>{
             switch(upgradeDb.oldVersion){
@@ -102,7 +103,7 @@ class AppController {
             const dayb4 = toDay - 1;
 
             //only get the previous day total if it is not the first day
-            if(dayb4 > 0 )prevDay = await store.get(`day ${dayb4}`);
+            if(dayb4 >= 0 )prevDay = await store.get(`day ${dayb4}`);
 
             store.put(commitsCount, `day ${toDay}`);
 

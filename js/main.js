@@ -14,8 +14,10 @@ document.querySelector('form').addEventListener('submit', event => {
     setInterval(AppController.syncSW, 86400000);
 });
 
+
 const channel = new BroadcastChannel('sw-message');
 channel.addEventListener('message', event =>{
+    // if sw sync has successfully calculated the step you need to take
     if (event.data.action === 'posted to indexDB'){
         const feet = document.querySelector('.feet');
 

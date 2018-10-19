@@ -47,7 +47,7 @@ addEventListener('fetch', event=>{
 addEventListener('sync', event =>{
     if (event.tag == 'moveStep') {
         event.waitUntil(commitSteps());
-        // inform the app about your posting to indexDB
+        // inform the app about posting to indexDB
         // using BroadcastChannel API
         const channel = new BroadcastChannel('sw-message');
         channel.postMessage({action:'posted to indexDB'});  

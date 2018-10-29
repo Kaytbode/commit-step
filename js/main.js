@@ -8,7 +8,7 @@ document.querySelector('form').addEventListener('submit', event => {
     //Add user to indexDB
     AppController.addUserToDB(userName);
 
-    //sync first time and click the button every day 
+    //sync with service worker
     AppController.syncSW();
 });
 

@@ -21,6 +21,7 @@ channel.addEventListener('message', event =>{
 
         const journey = document.querySelector('.journey');
 
-        AppController.moveFeet(feet, journey);
+        setTimeout(AppController.moveFeet, 5000, feet, journey);
+       // AppController.moveFeet(feet, journey);
     }
 }); 
